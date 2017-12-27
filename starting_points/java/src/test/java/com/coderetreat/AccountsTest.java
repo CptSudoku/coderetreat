@@ -37,6 +37,11 @@ public class AccountsTest {
     assertThat(account.printStatement()).isEqualTo(expected);
   }
 
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void depositAmountShouldBeGreaterThanZero() {
+    new Account(getClock(Instant.now())).deposit(-50);
+  }
+
   private Clock getClock(Instant instant) {
     Clock clock = mock(Clock.class);
     when(clock.instant()).thenReturn(instant);

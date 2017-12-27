@@ -3,6 +3,7 @@ package com.coderetreat;
 import java.time.Clock;
 import java.util.List;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 
 /**
@@ -31,6 +32,8 @@ public class Account {
   }
 
   public void deposit(int i) {
+    Preconditions.checkArgument(i > 0);
+
     this.i = i;
     statement.add(clock.instant() + " " + i + " " + i);
   }
