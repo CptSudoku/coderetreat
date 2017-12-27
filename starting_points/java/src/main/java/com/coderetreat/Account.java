@@ -13,7 +13,6 @@ public class Account {
 
   private final Clock clock;
   private List<String> statement;
-  private int i;
 
   public Account(Clock clock) {
     this.clock = clock;
@@ -33,8 +32,6 @@ public class Account {
 
   public void deposit(int i) {
     Preconditions.checkArgument(i > 0);
-
-    this.i = i;
     statement.add(clock.instant() + " " + i + " " + i);
   }
 }

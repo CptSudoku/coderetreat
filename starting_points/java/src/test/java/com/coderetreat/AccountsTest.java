@@ -16,11 +16,11 @@ import org.testng.annotations.Test;
 @Test
 public class AccountsTest {
 
-  private static String HEADER = "Date Amount Balance\\n";
+  private static String HEADER = "Date Amount Balance";
 
   @Test
   public void newAccountShouldDisplayZeros() {
-    assertThat(new Account(Clock.systemDefaultZone()).printStatement()).isEqualTo("0 0");
+    assertThat(new Account(Clock.systemDefaultZone()).printStatement()).isEqualTo(HEADER);
   }
 
   @Test
@@ -33,7 +33,7 @@ public class AccountsTest {
     account.deposit(100);
 
     // then
-    String expected = HEADER + instant.toString() + " 100 100";
+    String expected = HEADER + "\\n" + instant.toString() + " 100 100";
     assertThat(account.printStatement()).isEqualTo(expected);
   }
 
