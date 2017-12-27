@@ -11,8 +11,10 @@ import com.google.common.collect.Lists;
  */
 public class Account {
 
+  public static final String NEW_LINE = "\\n";
   private final Clock clock;
   private List<String> statement;
+  private int balance;
 
   public Account(Clock clock) {
     this.clock = clock;
@@ -22,16 +24,19 @@ public class Account {
 
   public String printStatement() {
     StringBuilder result = new StringBuilder();
-    for (int i = 0; i < statement.size(); i++) {
-      result.append(statement.get(i));
-      result.append("\\n");
+
+    for (String statementElement : statement) {
+      result.append(statementElement);
+      result.append(NEW_LINE);
     }
-    result.replace(result.lastIndexOf("\\n"), result.length(), "");
+
+    result.replace(result.lastIndexOf(NEW_LINE), result.length(), "");
     return result.toString();
   }
 
-  public void deposit(int i) {
-    Preconditions.checkArgument(i > 0);
-    statement.add(clock.instant() + " " + i + " " + i);
+  public void deposit(int amount) {
+    Preconditions.checkArgument(amount > 0);
+    balance += amount;
+    statement.add(clock.instant() + " " + amount + " " + balance);
   }
 }

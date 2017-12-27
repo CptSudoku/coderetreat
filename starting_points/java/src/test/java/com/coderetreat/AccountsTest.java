@@ -27,7 +27,7 @@ public class AccountsTest {
   public void depositShouldIncreaseFunds() {
     // given
     Instant instant = Instant.now();
-    Account account = new Account(getClock(instant));
+    Account account = buildAccount(instant);
 
     // when
     account.deposit(100);
@@ -37,9 +37,31 @@ public class AccountsTest {
     assertThat(account.printStatement()).isEqualTo(expected);
   }
 
+  @Test
+  public void multipleDepositsShouldIncreaseMultipleTimes() {
+    // given
+    Instant instant = Instant.now();
+    Account account = buildAccount(instant);
+
+    // when
+    account.deposit(100);
+    account.deposit(150);
+
+    // then
+    String expected = HEADER;
+    expected += "\\n" + instant.toString() + " 100 100";
+    expected += "\\n" + instant.toString() + " 150 250";
+
+    assertThat(account.printStatement()).isEqualTo(expected);
+  }
+
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void depositAmountShouldBeGreaterThanZero() {
-    new Account(getClock(Instant.now())).deposit(-50);
+    buildAccount(Instant.now()).deposit(-50);
+  }
+
+  private Account buildAccount(Instant instant) {
+    return new Account(getClock(instant));
   }
 
   private Clock getClock(Instant instant) {
