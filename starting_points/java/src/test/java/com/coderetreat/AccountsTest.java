@@ -16,6 +16,8 @@ import org.testng.annotations.Test;
 @Test
 public class AccountsTest {
 
+  private static String HEADER = "Date Amount Balance\\n";
+
   @Test
   public void newAccountShouldDisplayZeros() {
     assertThat(new Account(Clock.systemDefaultZone()).printStatement()).isEqualTo("0 0");
@@ -31,7 +33,8 @@ public class AccountsTest {
     account.deposit(100);
 
     // then
-    assertThat(account.printStatement()).isEqualTo("100 100");
+    String expected = HEADER + instant.toString() + " 100 100";
+    assertThat(account.printStatement()).isEqualTo(expected);
   }
 
   private Clock getClock(Instant instant) {

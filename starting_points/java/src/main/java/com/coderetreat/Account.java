@@ -17,18 +17,21 @@ public class Account {
   public Account(Clock clock) {
     this.clock = clock;
     this.statement = Lists.newArrayList();
+    this.statement.add("Date Amount Balance");
   }
 
   public String printStatement() {
-    if (statement.isEmpty()) {
-      return "0 0";
+    StringBuilder result = new StringBuilder();
+    for (int i = 0; i < statement.size(); i++) {
+      result.append(statement.get(i));
+      result.append("\\n");
     }
-
-    return statement.get(0);
+    result.replace(result.lastIndexOf("\\n"), result.length(), "");
+    return result.toString();
   }
 
   public void deposit(int i) {
     this.i = i;
-    statement.add(i + " " + i);
+    statement.add(clock.instant() + " " + i + " " + i);
   }
 }
