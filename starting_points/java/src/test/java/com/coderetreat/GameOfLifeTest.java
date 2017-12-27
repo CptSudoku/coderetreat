@@ -6,6 +6,6 @@ public class GameOfLifeTest {
 
     @Test
     public void trueShouldBeTrue() {
-//        assertThat(true).isEqualTo(false);
+        assertThat(true).isEqualTo(false);
     }
 }
