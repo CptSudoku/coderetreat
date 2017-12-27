@@ -39,4 +39,8 @@ public class Account {
     balance += amount;
     statement.add(clock.instant() + " " + amount + " " + balance);
   }
+
+  public void withdraw(int amount) {
+    Preconditions.checkArgument(amount > 0);
+  }
 }

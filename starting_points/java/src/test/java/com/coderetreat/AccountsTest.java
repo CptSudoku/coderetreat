@@ -60,6 +60,11 @@ public class AccountsTest {
     buildAccount(Instant.now()).deposit(-50);
   }
 
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void withdrawAmountShouldNotBeNegative() {
+    buildAccount(Instant.now()).withdraw(-50);
+  }
+
   private Account buildAccount(Instant instant) {
     return new Account(getClock(instant));
   }
