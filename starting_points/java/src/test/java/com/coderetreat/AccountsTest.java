@@ -2,8 +2,11 @@ package com.coderetreat;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.time.Clock;
+import java.time.Instant;
 
 import org.testng.annotations.Test;
 
@@ -20,11 +23,21 @@ public class AccountsTest {
 
   @Test
   public void depositShouldIncreaseFunds() {
-    Account account = new Account(Clock.systemDefaultZone());
+    // given
+    Instant instant = Instant.now();
+    Account account = new Account(getClock(instant));
 
+    // when
     account.deposit(100);
 
+    // then
     assertThat(account.printStatement()).isEqualTo("100 100");
+  }
+
+  private Clock getClock(Instant instant) {
+    Clock clock = mock(Clock.class);
+    when(clock.instant()).thenReturn(instant);
+    return clock;
   }
 
 }
