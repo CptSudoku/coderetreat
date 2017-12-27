@@ -16,4 +16,13 @@ public class AccountsTest {
     assertThat(new Account().printStatement()).isEqualTo("0 0");
   }
 
+  @Test
+  public void depositShouldIncreaseFunds() {
+    Account account = new Account();
+
+    account.deposit(100);
+
+    assertThat(account.printStatement()).isEqualTo("0 100");
+  }
+
 }

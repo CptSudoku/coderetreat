@@ -5,7 +5,14 @@ package com.coderetreat;
  */
 public class Account {
 
+  private int i;
+
   public String printStatement() {
-    return "0 0";
+    return "0 " + i;
+  }
+
+  public void deposit(int i) {
+
+    this.i = i;
   }
 }
