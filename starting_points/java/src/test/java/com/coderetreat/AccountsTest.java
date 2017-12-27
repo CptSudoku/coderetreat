@@ -55,6 +55,20 @@ public class AccountsTest {
     assertThat(account.printStatement()).isEqualTo(expected);
   }
 
+  @Test
+  public void withdrawShouldSubtractFunds() {
+    // given
+    Instant instant = Instant.now();
+    Account account = buildAccount(instant);
+
+    // when
+    account.withdraw(100);
+
+    // then
+    String expected = HEADER + "\\n" + instant.toString() + " -100 -100";
+    assertThat(account.printStatement()).isEqualTo(expected);
+  }
+
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void depositAmountShouldBeGreaterThanZero() {
     buildAccount(Instant.now()).deposit(-50);

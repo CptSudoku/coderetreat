@@ -36,11 +36,16 @@ public class Account {
 
   public void deposit(int amount) {
     Preconditions.checkArgument(amount > 0);
-    balance += amount;
-    statement.add(clock.instant() + " " + amount + " " + balance);
+    adjustBalance(amount);
   }
 
   public void withdraw(int amount) {
     Preconditions.checkArgument(amount > 0);
+    adjustBalance(-amount);
+  }
+
+  private void adjustBalance(int amount) {
+    balance += amount;
+    statement.add(clock.instant() + " " + amount + " " + balance);
   }
 }
